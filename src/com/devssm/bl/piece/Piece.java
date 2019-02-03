@@ -64,6 +64,7 @@ public abstract class Piece {
     }
 
     public abstract void move(Movement direction, int spaces);
+    public abstract void attact(Piece enemy);
     public abstract Piece isEnemyNear();
     public abstract boolean isAllyNear();
 }
