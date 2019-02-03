@@ -1,10 +1,12 @@
 package com.devssm.bl.table;
 
+import com.devssm.bl.Movement;
 import com.devssm.bl.piece.Piece;
 import com.devssm.exep.GameException;
 import com.devssm.exep.GameExceptionType;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public abstract class Table {
     protected Piece[][] tableMap;
@@ -77,18 +79,30 @@ public abstract class Table {
     public abstract void initPlayers();
 
     //  CLASS UTILITIES
+    public void movePiece(int row, String scol, Movement direction, int spaces) throws GameException {
+        HashMap<String,Object> pieceInfo = getPieceInfo(row,scol);
+        if (pieceInfo != null) {
+            Piece[] actualArray = (Piece[]) pieceInfo.get("array");
+            actualArray[(int) pieceInfo.get("index")].move(direction, spaces);
+        }
+    }
 
-    public Piece getPiece(int row, String scol) throws GameException {
+    private HashMap<String,Object> getPieceInfo(int row, String scol) throws GameException {
         int [] coords = getPieceFromTable(row,scol);
+        HashMap<String,Object> info = new HashMap<>();
 
         for(int i =0;i<this.p1.length;i++){
             if(p1[i].getPos()[0] == coords[0] && p1[i].getPos()[1] == coords[1]){
-                return p1[i];
+                info.put("player",1);
+                info.put("index",i);
+                info.put("array",p1);
+                return info;
             }
-        }
-        for(int i =0;i<this.p2.length;i++){
             if(p2[i].getPos()[0] == coords[0] && p2[i].getPos()[1] == coords[1]){
-                return p2[i];
+                info.put("player",2);
+                info.put("index",i);
+                info.put("array",p2);
+                return info;
             }
         }
         return null;
@@ -114,6 +128,7 @@ public abstract class Table {
     }
 
     public void updateTable() {
+        fillNullTable();
         if (p1.length > 0 && p2.length == p1.length) {
 
             for (int i = 0; i < p1.length; i++) {
