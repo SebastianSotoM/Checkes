@@ -11,8 +11,8 @@ public class CheckersPiece extends Piece{
     public CheckersPiece() {
     }
 
-    public CheckersPiece(PieceColor color, int[] pos, Table table) {
-        super(color, pos, table);
+    public CheckersPiece(PieceColor color, int[] pos) {
+        super(color, pos);
         if(color.getValue() == PieceColor.BLACK.getValue())
             type = CheckerType.NORMAL_BLACK;
         else
@@ -35,7 +35,6 @@ public class CheckersPiece extends Piece{
 
         tempPos = new int [] {pos[0]+y,pos[1]+x};
         pos = tempPos;
-        getTable().updateTable();
     }
 
     @Override

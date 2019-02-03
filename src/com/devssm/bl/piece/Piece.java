@@ -11,17 +11,15 @@ public abstract class Piece {
     protected String name;
     protected PieceColor color;
     protected int[] pos;
-    protected Table table;
     protected int[] tempPos;
     protected boolean state;
 
     public Piece() {
     }
 
-    public Piece(PieceColor color, int[] pos, Table table) {
+    public Piece(PieceColor color, int[] pos) {
         this.color = color;
         this.pos = pos;
-        this.table = table;
         this.state = true;
     }
 
@@ -47,14 +45,6 @@ public abstract class Piece {
 
     public void setPos(int[] pos) {
         this.pos = pos;
-    }
-
-    public Table getTable() {
-        return table;
-    }
-
-    public void setTable(Table table) {
-        this.table = table;
     }
 
     public int[] getTempPos() {

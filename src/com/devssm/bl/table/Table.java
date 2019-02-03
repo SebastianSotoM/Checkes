@@ -79,11 +79,27 @@ public abstract class Table {
     //  CLASS UTILITIES
 
     public Piece getPiece(int row, String scol) throws GameException {
+        int [] coords = getPieceFromTable(row,scol);
+
+        for(int i =0;i<this.p1.length;i++){
+            if(p1[i].getPos()[0] == coords[0] && p1[i].getPos()[1] == coords[1]){
+                return p1[i];
+            }
+        }
+        for(int i =0;i<this.p2.length;i++){
+            if(p2[i].getPos()[0] == coords[0] && p2[i].getPos()[1] == coords[1]){
+                return p2[i];
+            }
+        }
+        return null;
+    }
+
+    private int [] getPieceFromTable(int row, String scol) throws GameException {
         char col = scol.toUpperCase().charAt(0);
         int ixRow = rowName.length-row;
         int ixCol = (int)col-65;
         if (ixRow > -1 && ixCol > -1) {
-            return tableMap[ixRow][ixCol];
+            return new int[] {ixRow,ixCol};
         } else {
             throw new GameException(GameExceptionType.OUT_MAP);
         }
@@ -122,7 +138,6 @@ public abstract class Table {
 
     @Override
     public String toString() {
-        updateTable();
         String tableView = "";
 //        FOR EACH ROW PRINTS THE NUMBER
         for (int i = 0; i < tableMap.length; i++) {

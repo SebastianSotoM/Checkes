@@ -35,7 +35,7 @@ public class CheckersTable extends Table {
             for (int j = 0; j < y; j++) {
                 if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0)) {
                     if (color != null) {
-                        CheckersPiece p = new CheckersPiece(color, new int[]{i, j}, this);
+                        CheckersPiece p = new CheckersPiece(color, new int[]{i, j});
                         if(color == PieceColor.BLACK){
                             blacks.add(p);
                         }else{
