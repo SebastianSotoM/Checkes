@@ -51,9 +51,10 @@ public class CheckersTable extends Table {
 
             int row1,row2,col1,col2;
             row1 = p1[i].getPos()[0];
-            row2 = p2[i].getPos()[0];
             col1 = p1[i].getPos()[1];
-            col2 = p1[i].getPos()[1];
+
+            row2 = p2[i].getPos()[0];
+            col2 = p2[i].getPos()[1];
 
             tableMap[row1][col1] = p1[i];
             tableMap[row2][col2] = p2[i];

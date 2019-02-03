@@ -31,6 +31,17 @@ public abstract class Table {
         p2 = new Piece[pieceAmount];
         rowName = new int[tableMap.length];
         colName = new char[tableMap[0].length];
+
+        //        INITIALIZES THE COLUMN NAMES
+        int unicode = 0x41;
+        for (int i = 0; i < colName.length; i++) {
+            colName[i] = (char) (unicode + i);
+        }
+//        INITIALIZED THE ROW NUMBERS
+        for (int i = rowName.length - 1; i >= 0; i--) {
+            rowName[(i - (rowName.length - 1)) * -1] = i + 1;
+        }
+
         fillNullTable();
         initPlayers();
     }
@@ -90,16 +101,21 @@ public abstract class Table {
         if (p1.length > 0 && p2.length == p1.length) {
 
             for (int i = 0; i < p1.length; i++) {
-                if (p1[i] != null) {
-                    Piece current = p1[i];
-                    int row = current.getPos()[0];
-                    int col = current.getPos()[1];
-                    if (current.isState()) {
-                        tableMap[row][col] = current;
-                    } else {
-                        tableMap[row][col] = null;
-                    }
-                }
+                updateCurrentPlayer(i, p1);
+                updateCurrentPlayer(i, p2);
+            }
+        }
+    }
+
+    private void updateCurrentPlayer(int i, Piece[] player) {
+        if (player[i] != null) {
+            Piece current = player[i];
+            int row = current.getPos()[0];
+            int col = current.getPos()[1];
+            if (current.isState()) {
+                tableMap[row][col] = current;
+            } else {
+                tableMap[row][col] = null;
             }
         }
     }
@@ -108,16 +124,6 @@ public abstract class Table {
     public String toString() {
         updateTable();
         String tableView = "";
-//        INITIALIZES THE COLUMN NAMES
-        int unicode = 0x41;
-        for (int i = 0; i < colName.length; i++) {
-            colName[i] = (char) (unicode + i);
-        }
-//        INITIALIZED THE ROW NUMBERS
-        for (int i = rowName.length - 1; i >= 0; i--) {
-            rowName[(i - (rowName.length - 1)) * -1] = i + 1;
-        }
-
 //        FOR EACH ROW PRINTS THE NUMBER
         for (int i = 0; i < tableMap.length; i++) {
             tableView += rowName[i] + "\t";
