@@ -80,40 +80,40 @@ public abstract class Table {
 
     //  CLASS UTILITIES
     public void movePiece(int row, String scol, Movement direction, int spaces) throws GameException {
-        HashMap<String,Object> pieceInfo = getPieceInfo(row,scol);
+        HashMap<String, Object> pieceInfo = getPieceInfo(row, scol);
         if (pieceInfo != null) {
             Piece[] actualArray = (Piece[]) pieceInfo.get("array");
             actualArray[(int) pieceInfo.get("index")].move(direction, spaces);
         }
     }
 
-    private HashMap<String,Object> getPieceInfo(int row, String scol) throws GameException {
-        int [] coords = getPieceFromTable(row,scol);
-        HashMap<String,Object> info = new HashMap<>();
+    private HashMap<String, Object> getPieceInfo(int row, String scol) throws GameException {
+        int[] coords = getPieceFromTable(row, scol);
+        HashMap<String, Object> info = new HashMap<>();
 
-        for(int i =0;i<this.p1.length;i++){
-            if(p1[i].getPos()[0] == coords[0] && p1[i].getPos()[1] == coords[1]){
-                info.put("player",1);
-                info.put("index",i);
-                info.put("array",p1);
+        for (int i = 0; i < this.p1.length; i++) {
+            if (p1[i].getPos()[0] == coords[0] && p1[i].getPos()[1] == coords[1]) {
+                info.put("player", 1);
+                info.put("index", i);
+                info.put("array", p1);
                 return info;
             }
-            if(p2[i].getPos()[0] == coords[0] && p2[i].getPos()[1] == coords[1]){
-                info.put("player",2);
-                info.put("index",i);
-                info.put("array",p2);
+            if (p2[i].getPos()[0] == coords[0] && p2[i].getPos()[1] == coords[1]) {
+                info.put("player", 2);
+                info.put("index", i);
+                info.put("array", p2);
                 return info;
             }
         }
         return null;
     }
 
-    private int [] getPieceFromTable(int row, String scol) throws GameException {
+    private int[] getPieceFromTable(int row, String scol) throws GameException {
         char col = scol.toUpperCase().charAt(0);
-        int ixRow = rowName.length-row;
-        int ixCol = (int)col-65;
+        int ixRow = rowName.length - row;
+        int ixCol = (int) col - 65;
         if (ixRow > -1 && ixCol > -1) {
-            return new int[] {ixRow,ixCol};
+            return new int[]{ixRow, ixCol};
         } else {
             throw new GameException(GameExceptionType.OUT_MAP);
         }
@@ -169,9 +169,12 @@ public abstract class Table {
             tableView += "\n";
         }
         tableView += "\t";
+        String line = "  ";
         for (int i = 0; i < colName.length; i++) {
             tableView += colName[i] + "\t";
+            line += "-___";
         }
+        tableView += "\n" + line + "-\n";
         return tableView;
     }
 }
