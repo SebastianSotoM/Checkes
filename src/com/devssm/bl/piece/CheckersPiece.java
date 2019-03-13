@@ -38,6 +38,11 @@ public class CheckersPiece extends Piece{
     }
 
     @Override
+    public void attack(Piece enemy) {
+
+    }
+
+    @Override
     public Piece isEnemyNear() {
         return null;
     }

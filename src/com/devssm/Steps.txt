@@ -1,0 +1,4 @@
+1. Check for adyacent pieces and suggest only where there are no allys
+2. Check if there are enemyes and suggest only the direction to them.
+3. Move.
+4. If the piece moved over an enemy, stop the next step and remove the enemy from the board.
